@@ -1,10 +1,10 @@
-# Identification
+# pyident
 A Library to help you identify you users using Zibal API
 
-## Usage
+# Usage
 
 ```python
-from zibal_api import ZibalClient
+from zibal import ZibalClient
 
 # Initialize the client
 client = ZibalClient(api_token="your-token-here")
@@ -20,4 +20,36 @@ identity, status_code = client.get_user_identity(
     birthday="1990/01/01",
     national_code="1234567890"
 )
+```
+
+
+
+# Contributing to the Project
+
+## Commit Messages
+
+We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). The commit message should be structured as follows:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+Here's a list of `types` you can use for your commit message:
+
+- **feat**: A new feature
+- **fix**: A bug fix
+- **docs**: Documentation changes
+- **style**: Code style changes (like formatting)
+- **refactor**: Code changes that neither fix a bug nor add a feature
+- **test**: Adding or modifying tests
+- **chore**: Routine tasks, such as dependencies updates
+
+Commit message example:
+```
+feat(auth): add login API endpoint
+feat(lang): add Polish language
 ```
