@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyident"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Library to help you identify you users using Zibal API"
 authors = ["Fateme Fouladkar <fatemefuoladkar@gmail.com>"]
 license = "MIT"
