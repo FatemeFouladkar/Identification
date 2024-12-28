@@ -1,11 +1,13 @@
 import json
+import os
 import logging
 from typing import Tuple, Union
 import requests
 from requests import RequestException, JSONDecodeError
 from .exceptions import ERROR_CODES
 
-logger = logging.getLogger(__name__)
+
+logger = logging.getLogger("pyident").addHandler(logging.NullHandler())
 
 class ZibalClient:
     """
@@ -14,7 +16,11 @@ class ZibalClient:
     Documentation: https://help.zibal.ir/facilities
     """
     
-    def __init__(self, api_token: str, base_url: str = "https://api.zibal.ir/v1"):
+    def __init__(
+            self,
+            api_token: str = os.environ.get("ZIBAL_TOKEN"),
+            base_url: str = "https://api.zibal.ir/v1"
+        ) -> None:
         self.base_url = base_url
         self.headers = {
             'accept': 'application/json',
@@ -62,7 +68,7 @@ class ZibalClient:
                 exc_info=True,
                 extra={"response": res.text}
             )
-            if (result_code := res["result"]) == 1:
+            if (result_code := res.json()["result"]) == 1:
                 return res if raw else res.json()["data"].get("matched", False)
             
             if result_code in ERROR_CODES:
@@ -125,7 +131,7 @@ class ZibalClient:
                 exc_info=True,
                 extra={"response": res.text}
             )
-            if (result_code := res["result"]) == 1:
+            if (result_code := res.json()["result"]) == 1:
                 return res if raw else (res.json()["data"], res.status_code)
             
             if result_code in ERROR_CODES:
@@ -157,4 +163,5 @@ class ZibalClient:
         parts = birthday.split("/")
         if len(parts) != 3 or not all(part.isdigit() for part in parts):
             raise ValueError("birthday should be in the format 'YYYY/MM/DD'")
+
         return True
