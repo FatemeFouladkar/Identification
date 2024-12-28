@@ -4,7 +4,7 @@ A Library to help you identify you users using Zibal API
 # Usage
 
 
-### settings.py
+### .env
 ```python
 ZIBAL_TOKEN=your-token
 ```
